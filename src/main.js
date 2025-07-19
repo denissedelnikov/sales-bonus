@@ -94,7 +94,7 @@ function analyzeSalesData(data, options) {
             }
 
             
-            // Увеличить число всех проданных товаровseller.products_sold[item.sku] у продавца на количество проданных товаров в конкретном чеке
+            // Увеличить число всех проданных товарову продавца на количество проданных товаров в конкретном чеке
             
             // По артикулу товара увеличить его проданное количество у продавца
             seller.products_sold[item.sku] += item.quantity
@@ -108,11 +108,11 @@ function analyzeSalesData(data, options) {
     // @TODO: Назначение премий на основе ранжирования
     sellerStats.forEach((seller, index) => {
         seller.bonus = calculateBonusByProfit(index, sellerStats.length, seller)
-        seller.top_products = Object.entries(seller.products_sold).map(([key,value]) => [{[key]: value}]).sort (([a],[b]) => {a = Object.values(a), b = Object.values(b)
-            return b - a
-         }).slice(0,10)
+        seller.top_products = Object.entries(seller.products_sold).map((item) => [{'sku':item[0],"quantity":item[1]}]).sort(([a],[b]) => {
+           return  b["quantity"] - a["quantity"]
+        }).slice(0,10)
     })
-    console.log(sellerStats)
+
     // @TODO: Подготовка итоговой коллекции с нужными полями
         return sellerStats.map(seller => ({
                 seller_id: seller.id,  // Строка, идентификатор продавца
