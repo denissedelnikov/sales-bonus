@@ -110,9 +110,9 @@ function analyzeSalesData(data, options) {
         seller.bonus = calculateBonusByProfit(index, sellerStats.length, seller)
         seller.top_products = Object.entries(seller.products_sold).map(([key,value]) => [{[key]: value}]).sort (([a],[b]) => {a = Object.values(a), b = Object.values(b)
             return b - a
-         })
+         }).slice(0,10)
     })
-
+    console.log(sellerStats)
     // @TODO: Подготовка итоговой коллекции с нужными полями
         return sellerStats.map(seller => ({
                 seller_id: seller.id,  // Строка, идентификатор продавца
